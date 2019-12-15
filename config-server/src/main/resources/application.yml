@@ -1,0 +1,97 @@
+gitname: username
+gitpass: password
+server:
+  port: 7888
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka1:7777/eureka/,http://eureka2:7778/eureka/
+spring:
+  application:
+    name: config-server
+
+  cloud:
+    config:
+      server:
+        git:
+#          uri: git@github.com:Linzish/Cloud-Config.git
+          uri: https://github.com/Linzish/Cloud-Config.git
+          searchPaths: cloud-test/config-repo
+          default-label: master
+          username: ${gitname}
+          password: ${gitpass}
+
+    bus:
+      refresh:
+        enabled: true
+  kafka:
+    bootstrap-servers: server01:9092
+    consumer:
+      group-id: springcloud-bus
+
+# refresh
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+
+#          timeout: 100000
+#          strict-host-key-checking: false
+#          hostKey: someHostKey
+#          hostKeyAlgorithm: ssh-rsa
+#          ignore-local-ssh-settings: true
+#          private-key: |
+#            -----BEGIN RSA PRIVATE KEY-----
+#            MIIJKAIBAAKCAgEA1s9V3eC3LmDdQr2EfSXzwEj1ta3ElwEiPfe2+otObphHZUDH
+#            q+buII0gdipbDvNOSz/7R4+iEdxpVq14gEOq26JtYALOQNl1kl4lIHDP5Qljgsjr
+#            cMAbmfrkW4mRuWQPOI+0+C2iXZ4sAcKJA9FZuVVsvtGp1ZLPVskHZtGTrrHDPxMq
+#            pU5+tUt/MApz0MJERCex3l1CdAU3XWyF9MCI3bf0eRZhzJazbfh+SIskz1RZq1qD
+#            Vy2v7wzTWChBxIRNXo5yJtYV7PnzwI7s8gQEL/SM1JOLN99hxMqLvTaWjkKFyZjE
+#            2kXuJRo+d6ZXdNlCKF5AYNH4UeExwGonKoeOhLdOkQEAWADdWasuUSZhlu1tqcA+
+#            UJ1xtTX/yFtlVq8E9wacWou+z98G39xbmYt1ZKoJbLvHrQ8FApsGCkfmZM+UrPnM
+#            rVzGVTzjbinsHUZyRhkpFIWBc/TaCYkt1lAdkjF3vKV/uW2Thr0wLwTdrnUfO9K4
+#            DeeMlmVCJ/uNp6Euctrfg4Wf6RcGGke+Vl/1vOehi5drtYNpBtQDjkYG5+n7RMKR
+#            HlykSzP3RBcdoGN8b5nzEhliX3KYKUjnbQAIlDr5U9SEDhK4tLDl3bqVrADsn6LX
+#            pKrf7faSY3oXTtOR2VbkIN6vdr0qqEOz4We4sqZvrhcno73SoanPVLuoExMCAwEA
+#            AQKCAgBfDz3GhI1L3t3LjSa2YzctHpxtm8plsMDAf4Df+wnoc0cVDcfO0NEMYqe8
+#            4x2MzisVrei7UFq+YLXU/8tVp5xSudyBIny3wgP/k94GLyYxCyiYVeWq7bjJOXgY
+#            8hYk3pzFwQKq2TcDCt4aoUYVBG4aUC1hfFMWCnPqyeeWnqQmKNBod0jmAoicHh7Y
+#            2adK+M1RA+f4qXig8zX/B+l32EQ5KhDsDPWWnhIlVlQ8MidGAOP1qoZ46+TxetGE
+#            L7x7BLlgYNUvTopBZpNx4U4GA7T+q9AuumRfg2E2vxN71k5mAhZGkm560XuDu8tt
+#            E5WcRhC64IrIzeKACZIEvnU6ouZ0EN20P76WvQ5W8mwVLipJRxAL3m2jAG72y4Ml
+#            COSEEtfwE/u/X9W8KhSrSX2+RdMbfc4kMXq1czywuqHrZhwTTqRKsQ752Jh6QSXD
+#            mgDlrY5dIrTI0xTkqfHxXznG4cMlaIVfuFDdKkJuMCOZ1GKy+W9j9W+LsQjrP7XD
+#            78Gg6r+bJ29usObQigvLrqBfP8MnPEv94bNf2d/nHlePq40mQ/uQ92eHczotWfKc
+#            K8cpsAaVi1raXenLcElhDcqo+KKsRR+tJleAfsm79hnDphSAEas0GA10NpyZGN3w
+#            EeojRf6UHxbAWFu4rTrcytQiATxKd6eD3pbItBPwfzxMZiwzEQKCAQEA+aA5ZpOm
+#            yhhZf9YJN8xuaP3UMReFrxI14v7vbvVLR9XACG1iJGpr0n36w/LxDyVR3HUKhhJG
+#            /kzwqSfrIHErp10vvn+1xOv7Cxb51XfRyrFwrv4JCTOmKWXu3oGbbuNkaL7qfumT
+#            OC+OrvDcCy57Vwy5yL2CtnvzSk+ZiRZrfTxUDxm/ROvv3AA9vq0OXH5oPT4KQJt/
+#            1mgKGMwLS5UPh2fJC+NMNBpRfzZv79Lu3M/AFYinI2vJIBSHDT7xrAkSOYA4icaT
+#            NjjvrMSgmC4s0MP5DTDXUPNaT4PY8P347c1zabniX70pJ0yEGUOd19sco8zXSC8D
+#            l6HUpSOHEdQPzQKCAQEA3EuF7pvggxP8A4+3yQUN0Al8a5DGQJH1jG6h6d05ySDj
+#            qrwaCcD/edu7m21ovbDbxII8QdQyVvZ+qfCR3oi35/pA5WrG1jQvkEPJ3Yhn0GLN
+#            dgPAVXe7+XjXaZcUYW4Wux8bFPr5vviqDjI+KVPmKaZrC9YzsYuKnRnkfyms1wXb
+#            uCvkxLS81CsB/k6TseI3dADxDlmz33YGMRGSu8QUONNz62y0ol9IdZHwU2Ww6lQn
+#            oqLBCOMIRyNIxSZP+enACyXdpOkqg/9vtrO3RA0pBIZOmpS9ZDoUh/oJYWk6Et/U
+#            1N2Pcnbtl6wpqKx96fN6wMl4W+EZXwxgK9aVBn0OXwKCAQB0cVw1UEzuWtts+X/F
+#            SpR6X2VbHRjcKMeAQuGXxc6/DKOOis/MIuR3BRMz0qDGKud7yhEFp4L8XxGoJpnU
+#            wVXWtW5vE43L9TRe4PHbtQ/k2E6zIoc+hpxNFWKO4rCJ0oLlJaGnX/evrueFDY/n
+#            m2AnpCUJ0fUmgL1lfaomO5Iakki33o/Na62w11/2ES3w0Xp4jvcjWiYQ8uk61fuy
+#            3y6mQDCVXgsPBvPbPp6Kpb+Mu1Bj+yHUMRRZ5Zl2AVWkpXqd3gUBp+LF2VtcIUC0
+#            nF2FaNVFZPIbrdkD3IIXMLGs5DihKffCJzAKR/QbAOKhbXF3qzcFUgD/+5qBCgiY
+#            tW5FAoIBAQC0I9Hef3rE1Re0ddZsvARChS9H6ngjnvdzIZinW28AaDOjjvOf3EFN
+#            DYDJJVuMGk5rz6+kiPetIx4Kqx0tIxF30a01rO3xhXULfFNbI0r5HYIzqfeiLCn7
+#            Y3SK9K8GyPYvh80mh+Cn6EFvIGiydNf2YQ6R/FQDMD9mHiE6VwLuRe0ZGlOVAtKS
+#            kKStpuWhhYGhC5ATEwlChwmjIGKjxkBfA5J8BkVjrZTcBz3FhJd51t0eYgaF1NkV
+#            CuZbyOuHSjzvIMSxMLXCgKOCfE01ialr+MPYJh8FEXVuh+kZzeleO8iXVKITkOrS
+#            p0bdlkfUgnRzp4wTXevYTI9r6amtR5/zAoIBABICndtFIi02occEz25roGrWM/qY
+#            hoFn9v0ECK4i1I17KvhRhe8vrFoD2HDYrBhm/Y9kJhKGKMsOu++XgE4IuaCxomcG
+#            Hvvvph0ppKCLbvBthM1bVFxRTzPcxCASHNQkkiyhTx/n/qxbOjGtXuk7or26UmkG
+#            9w2wF/3E2AP89NC2boIw9HTj22fuDpUZIBSu1/nf268nXDHAfrI7yBNv9ljUSkb2
+#            OQYqH7m5Zb9B5hj0Q/UtdoDwEJwhyfDxJSKVQuEksrKnllhp2OvPTC0L547HSRda
+#            aRxjdk/OFfE2mGmJoIPWgEsYjHX7Skzse0a/rwT8gEb8fo6baqVuH9wSY2k=
+#            -----END RSA PRIVATE KEY-----
+
